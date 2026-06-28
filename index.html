@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Project — Build &amp; Ship a Real App with AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23201d;
+    --ink-soft:#4a4540;
+    --paper:#faf6ef;
+    --paper-card:#ffffff;
+    --gold:#b0832f;
+    --gold-soft:#e7c98a;
+    --gold-wash:#f6edda;
+    --line:#e7dfd1;
+    --teal:#2f6f6a;
+    --rose:#a8453a;
+    --shadow:0 1px 2px rgba(35,32,29,.04),0 8px 28px rgba(35,32,29,.07);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:16px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:840px;margin:0 auto;padding:0 28px 96px}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    margin:0 -28px 56px;
+    padding:64px 56px 56px;
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgba(176,131,47,.14), transparent 55%),
+      linear-gradient(160deg,#2a2622 0%, #322c26 60%, #3a322a 100%);
+    color:#f7f1e6;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;left:56px;bottom:0;width:88px;height:5px;
+    background:var(--gold);border-radius:3px;
+  }
+  .eyebrow{
+    font-size:12.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--gold-soft);margin:0 0 20px;
+  }
+  .hero h1{
+    font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:46px;line-height:1.05;letter-spacing:-.01em;margin:0 0 18px;
+  }
+  .hero .lede{
+    font-size:18px;line-height:1.6;max-width:62ch;color:#e9e0d2;margin:0 0 8px;font-weight:400;
+  }
+  .hero .meta{
+    margin-top:30px;display:flex;flex-wrap:wrap;gap:10px;
+  }
+  .pill{
+    font-size:12.5px;font-weight:600;letter-spacing:.02em;
+    padding:7px 14px;border-radius:100px;
+    background:rgba(231,201,138,.14);color:var(--gold-soft);
+    border:1px solid rgba(231,201,138,.28);
+  }
+
+  /* ---------- TYPE ---------- */
+  h2{
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:27px;
+    letter-spacing:-.01em;margin:56px 0 8px;line-height:1.15;
+    display:flex;align-items:baseline;gap:14px;
+  }
+  h2 .num{
+    font-size:15px;font-weight:700;color:var(--gold);
+    font-family:'Inter',sans-serif;letter-spacing:.04em;
+    border:1.5px solid var(--gold-soft);border-radius:8px;
+    padding:2px 9px;flex:none;transform:translateY(-3px);
+  }
+  .section-sub{color:var(--ink-soft);margin:0 0 26px;font-size:16.5px;max-width:64ch}
+  h3{font-family:'Inter',sans-serif;font-weight:700;font-size:17px;margin:30px 0 8px}
+  .route{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--gold);
+    margin:30px 0 2px;display:flex;align-items:center}
+  .route .tag{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:3px 9px;border-radius:100px;background:var(--gold);color:#fff;margin-left:6px}
+  .route .tag.fallback{background:#e7dfd1;color:var(--ink-soft)}
+  p{margin:0 0 14px}
+  a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-soft)}
+  strong{font-weight:600;color:var(--ink)}
+  .intro-rule{height:1px;background:var(--line);border:0;margin:0}
+
+  /* ---------- STEP CARDS ---------- */
+  .step{
+    background:var(--paper-card);border:1px solid var(--line);border-radius:16px;
+    padding:26px 28px 24px;margin:18px 0;box-shadow:var(--shadow);
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .step-head{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+  .step-badge{
+    flex:none;width:42px;height:42px;border-radius:12px;
+    display:grid;place-items:center;
+    background:linear-gradient(150deg,var(--gold) 0%, #946b22 100%);
+    color:#fff;font-weight:700;font-size:19px;font-family:'Fraunces',serif;
+    box-shadow:0 4px 12px rgba(176,131,47,.3);
+  }
+  .step-head h3{margin:0;font-size:19px;font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em}
+  .step-kicker{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:0 0 2px}
+  .step p:last-child{margin-bottom:0}
+  .step ul{margin:10px 0 0;padding-left:20px}
+  .step li{margin:6px 0}
+  .step li::marker{color:var(--gold)}
+
+  /* ---------- CALLOUTS ---------- */
+  .callout{
+    border-radius:12px;padding:16px 20px;margin:18px 0;
+    border:1px solid var(--line);background:var(--gold-wash);
+    break-inside:avoid;page-break-inside:avoid;font-size:15px;
+  }
+  .callout .label{font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px}
+  .callout.tip{background:#eef4f1;border-color:#cfe3dd}
+  .callout.tip .label{color:var(--teal)}
+  .callout.warn{background:#f9ece9;border-color:#ecc9c3}
+  .callout.warn .label{color:var(--rose)}
+  .callout.gold .label{color:var(--gold)}
+  .callout p:last-child{margin-bottom:0}
+
+  /* ---------- DEPLOY STEPS ---------- */
+  .deploy-step{
+    display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--line);
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .deploy-step:first-of-type{border-top:0}
+  .deploy-num{
+    flex:none;width:30px;height:30px;border-radius:50%;
+    background:var(--ink);color:#fff;font-weight:700;font-size:14px;
+    display:grid;place-items:center;font-family:'Inter',sans-serif;
+  }
+  .deploy-body{flex:1}
+  .deploy-body h4{margin:2px 0 6px;font-size:16.5px;font-weight:700}
+  .deploy-body p{margin:0 0 8px;font-size:15px}
+  .deploy-body p:last-child{margin-bottom:0}
+
+  /* ---------- CODE ---------- */
+  code{
+    font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13.5px;
+    background:#2a2622;color:#f1d9a6;padding:2px 7px;border-radius:5px;
+  }
+  .path{
+    font-family:'JetBrains Mono',monospace;font-size:13px;
+    background:var(--ink);color:#f3e8d2;padding:3px 8px;border-radius:6px;white-space:nowrap;
+  }
+  pre{
+    background:#2a2622;color:#f3ead9;border-radius:10px;padding:16px 18px;
+    overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;
+    margin:12px 0;break-inside:avoid;
+  }
+  pre .c{color:#9c8f7a}
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist{
+    background:var(--paper-card);border:1px solid var(--line);border-radius:16px;
+    padding:10px 26px;box-shadow:var(--shadow);margin:8px 0 0;
+  }
+  .check{
+    display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-top:1px solid var(--line);
+  }
+  .check:first-child{border-top:0}
+  .box{
+    flex:none;width:22px;height:22px;border:2px solid var(--gold);border-radius:6px;
+    margin-top:1px;background:#fff;
+  }
+  .check-body strong{display:block;font-size:15.5px;margin-bottom:1px}
+  .check-body span{font-size:14px;color:var(--ink-soft)}
+
+  /* ---------- FAQ ---------- */
+  .faq{border-top:1px solid var(--line);padding:18px 0;break-inside:avoid;page-break-inside:avoid}
+  .faq:last-child{border-bottom:1px solid var(--line)}
+  .faq .q{font-weight:700;font-size:16px;margin:0 0 6px;display:flex;gap:10px;align-items:baseline}
+  .faq .q::before{content:"Q";color:var(--gold);font-family:'Fraunces',serif;font-weight:700;font-size:15px}
+  .faq .a{margin:0;color:var(--ink-soft);font-size:15px;padding-left:24px}
+
+  /* ---------- README MINI ---------- */
+  .readme-tpl{
+    background:#2a2622;border-radius:12px;padding:20px 22px;margin:14px 0;
+    font-family:'JetBrains Mono',monospace;font-size:13px;color:#f3ead9;line-height:1.75;
+    break-inside:avoid;
+  }
+  .readme-tpl .h{color:var(--gold-soft);font-weight:500}
+  .readme-tpl .c{color:#9c8f7a}
+
+  /* ---------- FOOTER ---------- */
+  .footer{
+    margin-top:64px;padding-top:24px;border-top:2px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    color:var(--ink-soft);font-size:13.5px;
+  }
+  .footer strong{color:var(--ink)}
+
+  /* ---------- PRINT ---------- */
+  @page{margin:16mm 0}
+  @media print{
+    body{background:#fff;font-size:12pt;line-height:1.55}
+    .wrap{max-width:none;padding:0 18mm 0}
+    .hero{margin:0 0 32px;border-radius:0;padding:42px 40px 38px}
+    .hero h1{font-size:32pt}
+    .hero .lede{font-size:13pt}
+    h2{margin-top:30px;font-size:19pt}
+    .step,.checklist,.callout,.readme-tpl,pre{box-shadow:none}
+    a{color:var(--ink);border:0}
+    .step,.callout,.deploy-step,.faq,.check{page-break-inside:avoid}
+    h2,h3{page-break-after:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <p class="eyebrow">AI for Beginners · Practical Tools · Final Project</p>
+    <h1>Build &amp; ship a real app — with AI as your co-builder</h1>
+    <p class="lede">Your final project is to take everything we practiced this semester and use it to design, build, and publish a small working web app that solves a real problem. By the end you'll have a live link, on the internet, that anyone can open.</p>
+    <div class="meta">
+      <span class="pill">No coding background needed</span>
+      <span class="pill">Built by vibe-coding</span>
+      <span class="pill">Published on GitHub Pages</span>
+    </div>
+  </header>
+
+  <!-- ===================== WHAT ===================== -->
+  <section>
+    <h2><span class="num">01</span>What you're building</h2>
+    <p class="section-sub">A small web app — something a person can open in a browser and actually use.</p>
+    <p>This is not an essay about AI. It's a <strong>thing that works</strong>. A calculator, a planner, a converter, a quiz, a checklist tool, a tracker, a generator — whatever solves a problem you (or someone you know) genuinely has. It can be about anything; it does not have to be "serious." It just has to <strong>do its one job well</strong> and be <strong>live on the internet</strong> when you submit it.</p>
+    <p>You will build it the way we built our in-class apps: by <strong>describing what you want to an AI in plain language</strong>, looking at what it makes, telling it what's wrong, and repeating until it's good. This is what people call <em>vibe-coding</em> — you bring the judgment and the taste, the AI writes the code.</p>
+
+    <div class="callout gold">
+      <span class="label">The one rule that matters</span>
+      <p>Two things decide whether this project succeeds: <strong>(1) the app actually works</strong>, and <strong>(2) it is live at a public link</strong>. Everything else in this guide exists to get you to those two things. A simple app that works and is online beats an ambitious app that's broken or stuck on your laptop — every time.</p>
+    </div>
+  </section>
+
+  <!-- ===================== WORKFLOW ===================== -->
+  <section>
+    <h2><span class="num">02</span>The workflow, start to finish</h2>
+    <p class="section-sub">Seven steps. The first six are the skills you already practiced this semester; the seventh — publishing to GitHub — is the new piece, and it's spelled out in full in Section&nbsp;03.</p>
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">1</div>
+        <div>
+          <p class="step-kicker">Think</p>
+          <h3>Find a problem worth solving</h3>
+        </div>
+      </div>
+      <p>Start with a real itch, not a cool idea. Ask yourself: <em>what small task is annoying, repetitive, or confusing — for me, my family, my studies, or my work?</em> Then narrow it to <strong>one user</strong> and <strong>one job</strong>.</p>
+      <ul>
+        <li><strong>Who is it for?</strong> "Someone studying for a driving test." "A parent splitting a restaurant bill." "Me, tracking my water intake."</li>
+        <li><strong>What is the one job?</strong> Say it in a single sentence: "It lets you <em>____</em> so that you can <em>____</em>."</li>
+      </ul>
+      <div class="callout tip">
+        <span class="label">Tip</span>
+        <p>Smaller is better. A tool that does <strong>one</strong> thing cleanly is a great project. A tool that tries to do five things usually does none of them.</p>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">2</div>
+        <div>
+          <p class="step-kicker">Shape</p>
+          <h3>Shape the idea in conversation with the AI</h3>
+        </div>
+      </div>
+      <p>Before asking for any code, use the AI as a <strong>thinking partner</strong> — exactly the context-building and step-by-step prompting we practiced. Describe your user and the one job, then ask it to help you sharpen the plan:</p>
+      <ul>
+        <li>"Here's my idea: <em>[describe it]</em>. Who would use this and what would they expect it to do?"</li>
+        <li>"What is the <strong>simplest possible version</strong> that's still useful? What should I leave out for now?"</li>
+        <li>"Poke holes in this. What will confuse a first-time user?"</li>
+      </ul>
+      <p>Come out of this conversation with a short, clear description of the app and a list of its core features. That description becomes your build instructions <em>and</em> the seed of your README.</p>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">3</div>
+        <div>
+          <p class="step-kicker">Build</p>
+          <h3>Vibe-code the first version</h3>
+        </div>
+      </div>
+      <p>Now hand the AI the plan and ask it to build it. Be explicit that you want something you can run in a browser:</p>
+      <pre><span class="c"># A prompt that works well:</span>
+Build me a simple web app that does the following: [paste your
+description and feature list]. It should run in a web browser with
+no installation. Keep everything in as few files as possible.
+Explain how to open and run it.</pre>
+      <p>The AI will produce the files (often a single <code>index.html</code>, sometimes with separate JavaScript and CSS). Open it and <strong>see it run</strong>. It will not be perfect. That's expected — that's what Step&nbsp;4 is for.</p>
+      <div class="callout tip">
+        <span class="label">Tip</span>
+        <p>If your tool gives you a "preview" or "open in browser" button, use it. If it just gives you files, save them in one folder and double-click <span class="path">index.html</span> to open it in your browser.</p>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">4</div>
+        <div>
+          <p class="step-kicker">Iterate</p>
+          <h3>Iterate until it doesn't break</h3>
+        </div>
+      </div>
+      <p>This is the loop you know well: <strong>look → describe what's wrong → let the AI fix → look again.</strong> Talk to it like a person, not in code:</p>
+      <ul>
+        <li>"When I leave the field empty and click the button, nothing happens. It should show a friendly message."</li>
+        <li>"The result is correct but it's hard to read. Make it bigger and put it in a box."</li>
+        <li>"Try breaking it: what happens if someone types text where a number should go?"</li>
+      </ul>
+      <p>Deliberately test the <strong>edge cases</strong> — empty inputs, silly inputs, very large numbers. An app that doesn't crash when used "wrong" is the mark of a finished project.</p>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">5</div>
+        <div>
+          <p class="step-kicker">Polish</p>
+          <h3>Make it look intentional</h3>
+        </div>
+      </div>
+      <p>You don't need to be a designer — you need to <em>ask</em> for good design. A few prompts go a long way:</p>
+      <ul>
+        <li>"Make this look clean and modern. Use clear headings, comfortable spacing, and a simple color scheme."</li>
+        <li>"Make sure it looks good on a phone screen, not just a laptop."</li>
+        <li>"Add a short title and one line explaining what the app does at the top."</li>
+      </ul>
+      <p>Aim for <strong>looks pleasant, reads clearly, nothing cluttered</strong>. That's the bar.</p>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">6</div>
+        <div>
+          <p class="step-kicker">Document</p>
+          <h3>Write the README</h3>
+        </div>
+      </div>
+      <p>A <strong>README</strong> (pronounced "read me") is the front page of your project — a short text file named <span class="path">README.md</span> that tells a stranger what your app is and how to use it. You don't have to write it alone: hand your app and your Step&nbsp;2 description to the AI and ask it to draft one. A good README has just five things:</p>
+      <div class="readme-tpl">
+<span class="h"># App Name</span>
+<span class="c">One sentence: what it does and who it's for.</span>
+
+<span class="h">## What it does</span>
+<span class="c">A short list of the main features.</span>
+
+<span class="h">## Live link</span>
+<span class="c">https://your-username.github.io/your-app/</span>
+
+<span class="h">## How to use it</span>
+<span class="c">Open the link and… (1–3 simple steps).</span>
+
+<span class="h">## Known limitations</span>
+<span class="c">Be honest: "Only works for X", "doesn't yet handle Y".</span>
+      </div>
+      <div class="callout tip">
+        <span class="label">Tip</span>
+        <p>Listing your app's <strong>limitations</strong> isn't a weakness — it shows you understand your own project. Always include this section.</p>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step">
+      <div class="step-head">
+        <div class="step-badge">7</div>
+        <div>
+          <p class="step-kicker">Ship</p>
+          <h3>Publish it to GitHub Pages</h3>
+        </div>
+      </div>
+      <p>This is the step that turns "files on my laptop" into "a link anyone can open." It's the one genuinely new skill in this project — so it gets its own section, with every click spelled out. Go to <strong>Section&nbsp;03</strong> below.</p>
+    </div>
+  </section>
+
+  <!-- ===================== DEPLOY ===================== -->
+  <section>
+    <h2><span class="num">03</span>Publishing to GitHub Pages — the full walkthrough</h2>
+    <p class="section-sub">GitHub is a free home for projects. <strong>GitHub Pages</strong> is a free feature that turns your project files into a live website. Two parts: first get your project onto GitHub (Part&nbsp;1), then switch Pages on (Part&nbsp;2). None of it requires writing code — a desktop app or your browser does the work.</p>
+
+    <div class="callout gold">
+      <span class="label">What you need first</span>
+      <p>A folder on your computer containing your app's files — at minimum a file named exactly <span class="path">index.html</span>, plus any JavaScript, CSS, or image files it uses, and your <span class="path">README.md</span>. If your app has all its code inside a single <code>index.html</code>, that one file is enough.</p>
+    </div>
+
+    <h3>Part 1 — Get your project onto GitHub</h3>
+    <p>Two ways to do this. <strong>Pushing</strong> your project with the free GitHub Desktop app is the recommended route — a few minutes to set up once, and after that every update is a single click. Drag-and-drop upload (Route&nbsp;B) is a no-install fallback if you get stuck.</p>
+
+    <p class="route">Route A — Push with GitHub Desktop&nbsp;<span class="tag">recommended</span></p>
+
+    <div class="deploy-step">
+      <div class="deploy-num">1</div>
+      <div class="deploy-body">
+        <h4>Install GitHub Desktop and sign in</h4>
+        <p>Download it free from <a href="https://desktop.github.com">desktop.github.com</a>, install it, and sign in. If you don't have a GitHub account yet, create one at <a href="https://github.com">github.com</a> first — choose a username you're happy to have in your public link, since it becomes part of your web address (a user named <code>danacohen</code> gets links like <code>danacohen.github.io/...</code>).</p>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num">2</div>
+      <div class="deploy-body">
+        <h4>Add your app folder</h4>
+        <p>In GitHub Desktop choose <strong>File → Add Local Repository</strong> and select the folder with your app in it. If it warns that the folder isn't a repository yet, click the <strong>"create a repository"</strong> link it offers, keep the default settings, and click <strong>Create Repository</strong>. This turns your folder into a project GitHub can track.</p>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num">3</div>
+      <div class="deploy-body">
+        <h4>Commit your first version</h4>
+        <p>Your files appear in the left panel. In the <strong>Summary</strong> box at the bottom-left, type a short note like <em>"First version"</em>, then click <strong>Commit to main</strong>. A "commit" is simply a saved snapshot of your project.</p>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num">4</div>
+      <div class="deploy-body">
+        <h4>Publish (push) to GitHub</h4>
+        <p>Click <strong>Publish repository</strong> at the top. Make sure <strong>"Keep this code private" is unticked</strong> so it stays public, then click <strong>Publish repository</strong>. Your project is now on GitHub. (Pushing just means sending your saved snapshot up to GitHub.)</p>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num">5</div>
+      <div class="deploy-body">
+        <h4>Push your updates as you go</h4>
+        <p>Every time you change your app afterwards, GitHub Desktop shows exactly what changed. Type a short summary, click <strong>Commit to main</strong>, then click <strong>Push origin</strong> at the top. That's the whole loop for the rest of the project — commit, push, done.</p>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <span class="label">Already working in a terminal?</span>
+      <p>If you're comfortable with the command line — or your AI is already running commands for you — you can skip the app entirely. Ask your co-builder: <em>"Walk me through pushing this folder to a new public GitHub repository with git."</em> It will give you the exact <code>git init</code> → <code>git commit</code> → <code>git push</code> commands and explain each one.</p>
+    </div>
+
+    <p class="route">Route B — Drag-and-drop upload&nbsp;<span class="tag fallback">fallback</span></p>
+    <p>No installs — everything happens in your browser. Use this only if GitHub Desktop won't cooperate.</p>
+
+    <div class="deploy-step">
+      <div class="deploy-num">1</div>
+      <div class="deploy-body">
+        <h4>Create a repository on the website</h4>
+        <p>At <a href="https://github.com">github.com</a>, click the <strong>+</strong> in the top-right corner → <strong>New repository</strong>. Give it a short, lowercase name with no spaces (for example <code>bill-splitter</code>), set it to <strong>Public</strong>, tick <strong>"Add a README file"</strong>, and click <strong>Create repository</strong>.</p>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num">2</div>
+      <div class="deploy-body">
+        <h4>Upload your app files</h4>
+        <p>On the repository page, click <strong>Add file → Upload files</strong>. Drag your files from your computer into the browser window — your <span class="path">index.html</span> and everything next to it — then scroll down and click <strong>Commit changes</strong>. Your <span class="path">index.html</span> must sit at the <strong>top level</strong> of the repository, not inside a sub-folder. To update later, repeat this with the new version (a file with the same name replaces the old one).</p>
+      </div>
+    </div>
+
+    <h3>Part 2 — Switch on GitHub Pages</h3>
+    <p>This part is identical no matter which route you used to get your files up.</p>
+
+    <div class="deploy-step">
+      <div class="deploy-num">1</div>
+      <div class="deploy-body">
+        <h4>Turn on Pages</h4>
+        <p>On your repository, click <strong>Settings</strong> (top menu) → <strong>Pages</strong> (left sidebar). Under <strong>"Build and deployment" → "Source"</strong>, choose <strong>Deploy from a branch</strong>. Under <strong>Branch</strong>, select <code>main</code> and the folder <code>/ (root)</code>, then click <strong>Save</strong>.</p>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num">2</div>
+      <div class="deploy-body">
+        <h4>Get your live link</h4>
+        <p>Wait about <strong>1–2 minutes</strong>, then refresh the Pages screen. A green box appears: <em>"Your site is live at …"</em> with a link like <span class="path">https://your-username.github.io/bill-splitter/</span>. Click it to check it works. That public link is your submission.</p>
+      </div>
+    </div>
+
+    <div class="deploy-step">
+      <div class="deploy-num">3</div>
+      <div class="deploy-body">
+        <h4>Put the link in your README</h4>
+        <p>Add your live link to <span class="path">README.md</span> under the <strong>Live link</strong> heading and save. Now anyone who finds your project can reach the working app. GitHub Pages refreshes your live site automatically within a minute or two whenever you push or upload a change.</p>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      <span class="label">If your app has a "build step"</span>
+      <p>Some apps (like our in-class <em>Marginless</em> tool) use extra tooling and must be <strong>"built"</strong> first — a command like <code>npm run build</code> turns your project into a finished folder, usually named <span class="path">dist</span> or <span class="path">build</span>. If that's you: run the build (ask your AI to walk you through it), then push or upload <strong>the contents of that folder</strong> — not the whole project — so <span class="path">index.html</span> ends up at the top level. Pages settings and the live link work exactly the same.</p>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">When in doubt, ask your co-builder</span>
+      <p>If anything here gets stuck, paste the exact screen or error into your AI and say: <em>"I'm trying to publish my app to GitHub Pages and I'm stuck here: [describe what you see]. Walk me through the next click."</em> Deployment trouble is one of the easiest things for the AI to talk you through.</p>
+    </div>
+  </section>
+
+  <!-- ===================== DELIVERABLES ===================== -->
+  <section>
+    <h2><span class="num">04</span>What to submit</h2>
+    <p class="section-sub">Before you hand it in, walk this checklist. If every box is true, you're done.</p>
+    <div class="checklist">
+      <div class="check">
+        <div class="box"></div>
+        <div class="check-body"><strong>A public GitHub repository</strong><span>Your project lives in a public repo, with your <span class="path">index.html</span> and any supporting files.</span></div>
+      </div>
+      <div class="check">
+        <div class="box"></div>
+        <div class="check-body"><strong>A live GitHub Pages link that opens and works</strong><span>Open it in a fresh browser tab (or on your phone). The app loads and does its job. This is the single most important item.</span></div>
+      </div>
+      <div class="check">
+        <div class="box"></div>
+        <div class="check-body"><strong>A README in the repo</strong><span>Includes the five parts: what it is, what it does, the live link, how to use it, and known limitations.</span></div>
+      </div>
+      <div class="check">
+        <div class="box"></div>
+        <div class="check-body"><strong>It survives misuse</strong><span>Empty fields and odd inputs produce a sensible message, not a broken screen.</span></div>
+      </div>
+      <div class="check">
+        <div class="box"></div>
+        <div class="check-body"><strong>It looks intentional</strong><span>Clear title, readable layout, works on a phone-sized screen.</span></div>
+      </div>
+    </div>
+    <p style="margin-top:22px"><strong>How you submit:</strong> hand in your <strong>two links</strong> — the live GitHub Pages link and the GitHub repository link — through the final-project assignment on the course website. <strong>Deadline: Tuesday, 21 July 2026.</strong></p>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section>
+    <h2><span class="num">05</span>Common pitfalls &amp; FAQ</h2>
+    <p class="section-sub">The small things that trip people up — and how to get past them.</p>
+
+    <div class="faq">
+      <p class="q">The AI wrote the code. Is that allowed?</p>
+      <p class="a">Yes — that's the entire point. This course is about <em>directing</em> AI well. Your work is the thinking: choosing a real problem, scoping it, judging the result, fixing what's wrong, and shipping it. That's the skill being assessed.</p>
+    </div>
+
+    <div class="faq">
+      <p class="q">My app works on my laptop but the live link shows a blank page.</p>
+      <p class="a">Almost always one of three things: (1) your file isn't named exactly <span class="path">index.html</span>; (2) <span class="path">index.html</span> is inside a sub-folder instead of at the top level of the repo; or (3) the app has a build step and you uploaded the source instead of the built <span class="path">dist</span> folder (see Route&nbsp;B). Paste the problem into your AI and it'll pinpoint which one.</p>
+    </div>
+
+    <div class="faq">
+      <p class="q">How "good" does the app have to be?</p>
+      <p class="a">It has to <strong>work</strong>, be <strong>live</strong>, and do <strong>one real job</strong> cleanly. A modest tool that nails that is a strong project. Ambition is welcome but never at the cost of "it's broken" or "it's not online."</p>
+    </div>
+
+    <div class="faq">
+      <p class="q">My idea feels too big and I'm getting lost.</p>
+      <p class="a">Cut it down. Ask the AI: "What's the smallest useful version of this?" and build only that. You can always add more later — but a finished small app beats an unfinished big one.</p>
+    </div>
+
+    <div class="faq">
+      <p class="q">Does my app need to connect to the internet or use an outside service?</p>
+      <p class="a">No. Most great projects run entirely in the browser with no outside data. If you do use a free public service, make sure the app still behaves gracefully when it's unavailable — and <strong>never paste a private password or secret key into your code</strong>, because your repository is public.</p>
+    </div>
+
+    <div class="faq">
+      <p class="q">What language should the app be in?</p>
+      <p class="a">English. Your app's on-screen text, your README, and your repository should all be in English — not Hebrew. Make sure the wording reads cleanly and the layout looks right.</p>
+    </div>
+
+    <div class="faq">
+      <p class="q">Do I need a PRD or any formal planning document?</p>
+      <p class="a">No. Your README is the only document required. The planning happens in your conversation with the AI (Step&nbsp;2) — keep it light and focused on building.</p>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <div class="footer">
+    <div><strong>AI for Beginners — Practical Tools for Work, Study &amp; Daily Life</strong><br>Final Project Guide · Prof. Yaniv Fox</div>
+    <div style="text-align:right">Build it · Test it · <strong style="color:var(--gold)">Ship it</strong></div>
+  </div>
+
+</div>
+</body>
+</html>
